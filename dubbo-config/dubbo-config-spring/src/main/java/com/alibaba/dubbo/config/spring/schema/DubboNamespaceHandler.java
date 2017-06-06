@@ -35,6 +35,7 @@ import com.alibaba.dubbo.config.spring.ServiceBean;
  * @author william.liangf
  * @export
  */
+//spring dubbo bean init
 public class DubboNamespaceHandler extends NamespaceHandlerSupport {
 
 	static {

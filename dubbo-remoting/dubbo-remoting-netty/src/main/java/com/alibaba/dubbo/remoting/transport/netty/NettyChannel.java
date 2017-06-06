@@ -90,6 +90,7 @@ final class NettyChannel extends AbstractChannel {
     }
 
     public void send(Object message, boolean sent) throws RemotingException {
+        //校验，并没有真正发送
         super.send(message, sent);
         
         boolean success = true;

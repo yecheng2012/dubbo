@@ -42,6 +42,7 @@ import com.alibaba.dubbo.config.support.Parameter;
  * @author william.liangf
  * @export
  */
+//InitializingBean、DisposableBean接口定义了bean初始化以及销毁的行为
 public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean, ApplicationContextAware, InitializingBean, DisposableBean {
 
 	private static final long serialVersionUID = 213195494150089726L;
@@ -60,7 +61,8 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
 		this.applicationContext = applicationContext;
 		SpringExtensionFactory.addApplicationContext(applicationContext);
 	}
-    
+
+	//入口,FactoryBean
     public Object getObject() throws Exception {
         return get();
     }
@@ -74,6 +76,7 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
         return true;
     }
 
+    //初始化方法
     @SuppressWarnings({ "unchecked"})
     public void afterPropertiesSet() throws Exception {
         if (getConsumer() == null) {

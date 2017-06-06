@@ -56,7 +56,9 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
     public DubboInvoker(Class<T> serviceType, URL url, ExchangeClient[] clients){
         this(serviceType, url, clients, null);
     }
-    
+
+    //invoker初始化
+    //serviceType代理接口
     public DubboInvoker(Class<T> serviceType, URL url, ExchangeClient[] clients, Set<Invoker<?>> invokers){
         super(serviceType, url, new String[] {Constants.INTERFACE_KEY, Constants.GROUP_KEY, Constants.TOKEN_KEY, Constants.TIMEOUT_KEY});
         this.clients = clients;
@@ -65,6 +67,7 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
         this.invokers = invokers; 
     }
 
+    //父类的invoke()钩子调用
     @Override
     protected Result doInvoke(final Invocation invocation) throws Throwable {
         RpcInvocation inv = (RpcInvocation) invocation;
@@ -76,6 +79,7 @@ public class DubboInvoker<T> extends AbstractInvoker<T> {
         if (clients.length == 1) {
             currentClient = clients[0];
         } else {
+            //轮询选择
             currentClient = clients[index.getAndIncrement() % clients.length];
         }
         try {

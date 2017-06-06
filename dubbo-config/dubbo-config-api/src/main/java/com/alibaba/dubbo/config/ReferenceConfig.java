@@ -332,7 +332,8 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
             throw new IllegalStateException(e);
         }
     }
-    
+
+    //动态代理生成对象
 	@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
 	private T createProxy(Map<String, String> map) {
 		URL tmpUrl = new URL("temp", "localhost", 0, map);
@@ -352,7 +353,8 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
 		
 		if (isJvmRefer) {
 			URL url = new URL(Constants.LOCAL_PROTOCOL, NetUtils.LOCALHOST, 0, interfaceClass.getName()).addParameters(map);
-			invoker = refprotocol.refer(interfaceClass, url);
+			//创建invoker
+            invoker = refprotocol.refer(interfaceClass, url);
             if (logger.isInfoEnabled()) {
                 logger.info("Using injvm service " + interfaceClass.getName());
             }
@@ -422,7 +424,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         if (logger.isInfoEnabled()) {
             logger.info("Refer dubbo service " + interfaceClass.getName() + " from url " + invoker.getUrl());
         }
-        // 创建服务代理
+        // 创建服务代理，真正创建代理
         return (T) proxyFactory.getProxy(invoker);
     }
 

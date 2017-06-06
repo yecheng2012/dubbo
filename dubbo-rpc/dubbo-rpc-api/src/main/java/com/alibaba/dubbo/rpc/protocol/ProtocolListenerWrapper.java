@@ -34,6 +34,7 @@ import com.alibaba.dubbo.rpc.listener.ListenerInvokerWrapper;
  * 
  * @author william.liangf
  */
+//这个类本身没做什么事情
 public class ProtocolListenerWrapper implements Protocol {
 
     private final Protocol protocol;
